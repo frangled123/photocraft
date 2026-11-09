@@ -107,7 +107,8 @@ fn clicking_the_menu_item_leaves_the_caret_in_the_name_field() {
     let mut h = harness();
     h.get_by_label("Select").click();
     h.run_steps(4);
-    h.get_by_label("Find Layers Ctrl+Alt+Shift+F").click();
+    // macOS renders Command glyphs; the menu action has the same accessible label.
+    h.get_by_label_contains("Find Layers").click();
     h.run_steps(6);
     assert_eq!(h.state().ui.layer_filter_by, FilterBy::Name);
     h.event(egui::Event::Text("lin".into()));

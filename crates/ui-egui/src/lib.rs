@@ -13,8 +13,13 @@
 /// prompt shows both, and an AppImage's menu entry gets the icon.
 #[cfg(not(target_arch = "wasm32"))]
 pub const UPDATE_APP: craft_update::app::App = craft_update::app::App {
+    repo: "frangled123/photocraft",
+    name: "Iride",
+    former_names: &["PhotoCraft"],
+    former_ids: &["iride"],
+    developer: "frangled123 (independent fork)",
     icon_png: Some(include_bytes!("../../../assets/app-icon/hicolor/128x128/apps/ai.storyteller.photocraft.png")),
-    accent: Some([0x2f, 0x7b, 0xf5]),
+    accent: Some([0x13, 0x9e, 0x9a]),
     ..craft_update::suite::PHOTOCRAFT
 };
 
@@ -24,6 +29,7 @@ macro_rules! tl {
         $crate::i18n::t($s)
     };
 }
+pub mod branding;
 mod brush_mode_menu;
 pub mod canvas;
 pub mod control;

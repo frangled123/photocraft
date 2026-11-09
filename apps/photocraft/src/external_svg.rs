@@ -1388,7 +1388,11 @@ mod native {
             assert!(owned.read(&stamp).is_err());
             assert!(owned.overwrite(b"<svg/>").is_err());
             std::fs::remove_file(&owned.file).unwrap();
+            #[cfg(not(target_os = "macos"))]
             rustix::fs::mkfifoat(rustix::fs::CWD, &owned.file, rustix::fs::Mode::RUSR | rustix::fs::Mode::WUSR).unwrap();
+            // rustix does not expose mkfifoat on macOS. Keep the FIFO safety test there too.
+            #[cfg(target_os = "macos")]
+            assert!(std::process::Command::new("/usr/bin/mkfifo").args(["-m", "600"]).arg(&owned.file).status().unwrap().success());
             assert!(owned.stamp().is_err());
             let began = Instant::now();
             assert!(owned.read(&stamp).is_err());

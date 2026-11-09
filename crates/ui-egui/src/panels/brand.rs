@@ -1,17 +1,16 @@
-//! The PhotoCraft brand mark at the left of the title bar: the app icon (the kitsune,
-//! `assets/app-icon/`, see its README), where Photoshop shows its "Ps" tile. The PNG carries the
-//! icon's rounded corners; it is decoded once per context into a mipmapped texture, so it stays
-//! crisp at the title bar's size on any display scale.
+//! The fork’s ribbon app icon, cached separately for light and dark UI themes.
 
 use egui::{Color32, Context, Id, Rect, TextureHandle, TextureOptions, Ui, pos2};
 use photocraft_codecs::{ChannelLayout, SampleType};
 
 /// 128 px: sharp at 20 pt on a 3× display, and the mipmaps keep it clean at 1×.
 const ICON_PNG: &[u8] = include_bytes!("../../../../assets/app-icon/hicolor/128x128/apps/ai.storyteller.photocraft.png");
+const DARK_ICON_PNG: &[u8] = include_bytes!("../../../../assets/app-icon/photocraft-dark-128.png");
 
 /// The icon's pixels (one transparent pixel if it couldn't be decoded, which a test rules out).
-fn decode() -> egui::ColorImage {
-    let rgba = photocraft_codecs::decode(ICON_PNG).ok().map(|img| img.convert(ChannelLayout::Rgba, SampleType::U8));
+fn decode(dark: bool) -> egui::ColorImage {
+    let png = if dark { DARK_ICON_PNG } else { ICON_PNG };
+    let rgba = photocraft_codecs::decode(png).ok().map(|img| img.convert(ChannelLayout::Rgba, SampleType::U8));
     match rgba {
         Some(img) if img.data().len() == img.width() as usize * img.height() as usize * 4 => {
             egui::ColorImage::from_rgba_unmultiplied([img.width() as usize, img.height() as usize], img.data())
@@ -22,12 +21,13 @@ fn decode() -> egui::ColorImage {
 
 /// The icon texture, uploaded on first use and kept in the context.
 fn texture(ctx: &Context) -> TextureHandle {
-    let id = Id::unique("photocraft-brand-mark");
+    let dark = ctx.global_style().visuals.dark_mode;
+    let id = Id::unique("photocraft-brand-mark").with(dark);
     if let Some(tex) = ctx.data(|d| d.get_temp::<TextureHandle>(id)) {
         return tex;
     }
     let options = TextureOptions { mipmap_mode: Some(egui::TextureFilter::Linear), ..TextureOptions::LINEAR };
-    let tex = ctx.load_texture("photocraft-brand-mark", decode(), options);
+    let tex = ctx.load_texture("photocraft-brand-mark", decode(dark), options);
     ctx.data_mut(|d| d.insert_temp(id, tex.clone()));
     tex
 }
@@ -55,8 +55,22 @@ mod tests {
     use super::*;
 
     #[test]
+    fn theme_switch_selects_and_reuses_the_matching_texture() {
+        let ctx = Context::default();
+        ctx.set_visuals(egui::Visuals::light());
+        let light = texture(&ctx).id();
+        ctx.set_visuals(egui::Visuals::dark());
+        let dark = texture(&ctx).id();
+        assert_ne!(light, dark);
+        assert_ne!(decode(false).pixels, decode(true).pixels);
+        assert_eq!(decode(true).size, [128, 128]);
+        ctx.set_visuals(egui::Visuals::light());
+        assert_eq!(texture(&ctx).id(), light);
+    }
+
+    #[test]
     fn the_icon_decodes_to_a_rounded_128_px_tile() {
-        let img = decode();
+        let img = decode(false);
         assert_eq!(img.size, [128, 128]);
         // Rounded corners: the corner pixel is transparent, the centre opaque.
         assert_eq!(img.pixels[0].a(), 0);

@@ -27,7 +27,7 @@ pub fn window_icon() -> egui::IconData {
 }
 
 /// Whether the window gets [`window_icon`] at runtime: everywhere except inside a macOS app
-/// bundle. There the Dock shows the bundle's `PhotoCraft.icns` (`CFBundleIconFile`), which macOS
+/// bundle. There the Dock shows the bundle's native catalog (`CFBundleIconName`), which macOS
 /// renders in its own style (Liquid Glass and its tinted and dark variants); a runtime PNG
 /// replaced it with a flat picture (#5849). `exe` is the running executable.
 pub fn sets_runtime_icon(exe: Option<&std::path::Path>) -> bool {

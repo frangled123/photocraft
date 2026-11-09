@@ -23,6 +23,9 @@ sed 's/viewBox="0 0 512 512"/viewBox="-62 -62 636 636"/' "$SVG" >"$MAC"
 
 render() { resvg -w "$2" -h "$2" "$1" "$3" </dev/null; }
 
+# In-app marks follow the UI appearance, independently of the macOS Dock setting.
+render "$DIR/photocraft-dark.svg" 128 "$DIR/photocraft-dark-128.png"
+
 render "$MAC" 1024 "$DIR/photocraft-1024.png"
 
 # Linux hicolor theme.

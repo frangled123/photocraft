@@ -822,7 +822,16 @@ fn about_tab_body(app: &mut PhotocraftApp, ui: &mut egui::Ui, tab: &str) {
         "contributors" => crate::credits::contributors_ui(app, ui),
         "models" => crate::credits::models_ui(ui),
         _ => {
-            ui.label(tl!("PhotoCraft — an open-source, native image editor written in Rust."));
+            ui.label(crate::branding::text(tl!("PhotoCraft — an open-source, native image editor written in Rust.")).as_ref());
+            ui.horizontal(|ui| {
+                let (uri, bytes): (&str, &'static [u8]) = if ui.visuals().dark_mode {
+                    ("bytes://ribbon-mark-dark.png", include_bytes!("../../../docs/brand/ribbon-mark-dark.png"))
+                } else {
+                    ("bytes://ribbon-mark-light.png", include_bytes!("../../../docs/brand/ribbon-mark-light.png"))
+                };
+                ui.add(egui::Image::from_bytes(uri, bytes).fit_to_exact_size(egui::vec2(28.0, 28.0)).alt_text("Independent ribbon suite"));
+                ui.label(tl!("Independent macOS ARM build"));
+            });
             ui.label(crate::i18n::fmt(tl!("Version {version}"), &[("version", &photocraft_engine::build_info::long_version())]));
             ui.add_space(12.0);
             ui.vertical_centered(|ui| {
@@ -862,7 +871,7 @@ pub fn title(d: &Dialog) -> String {
     match d.kind {
         DialogKind::NewDocument => "New Document".into(),
         DialogKind::About if d.fields.get("systemInfo").and_then(Value::as_bool) == Some(true) => "System Info".into(),
-        DialogKind::About => "About PhotoCraft".into(),
+        DialogKind::About => crate::branding::text(tl!("About PhotoCraft")).into_owned(),
         DialogKind::LayerStyle => "Layer Style".into(),
         DialogKind::Command => d.fields.get("__label").and_then(Value::as_str).unwrap_or("Command").trim_end_matches('…').to_string(),
         DialogKind::Error => "Error".into(),

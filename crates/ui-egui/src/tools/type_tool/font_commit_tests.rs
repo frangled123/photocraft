@@ -103,6 +103,7 @@ fn fixture_renderer(new: bool, pattern: usize, character: bool, content: &str, g
 }
 
 fn choose(h: &mut Harness<'_, Probe>, font: &str, accept: &str) {
+    let already_selected = h.query_all_by_role(Role::TextInput).next().unwrap().value().as_deref() == Some(font);
     h.query_all_by_role(Role::TextInput).next().unwrap().click();
     h.run();
     h.query_all_by_role(Role::TextInput).next().unwrap().type_text(font);
@@ -112,6 +113,13 @@ fn choose(h: &mut Harness<'_, Probe>, font: &str, accept: &str) {
         "arrow-enter" => {
             h.key_press(Key::ArrowDown);
             h.run();
+            // A full match can already be selected. On macOS, "Inter" also matches
+            // "SignPainter": Down legitimately moves to that next font. Return to the
+            // requested family after exercising keyboard navigation.
+            if already_selected {
+                h.key_press(Key::ArrowUp);
+                h.run();
+            }
             h.key_press(Key::Enter);
         }
         "click" => h.get_by_label(font).click(),

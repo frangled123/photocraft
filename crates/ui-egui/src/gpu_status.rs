@@ -274,7 +274,7 @@ pub fn show_fallback(app: &mut PhotocraftApp, ctx: &egui::Context) {
         .anchor(egui::Align2::CENTER_CENTER, egui::Vec2::ZERO)
         .show(ctx, |ui| {
             ui.label(egui::RichText::new(tl!("GPU acceleration could not continue. Your documents are unchanged.")).color(t.warning));
-            ui.label(tl!("PhotoCraft is using the CPU image compositor. The window may still use your graphics adapter."));
+            ui.label(crate::branding::text(tl!("PhotoCraft is using the CPU image compositor. The window may still use your graphics adapter.")).as_ref());
             ui.collapsing(tl!("Details"), |ui| {
                 ui.label(&reason);
             });

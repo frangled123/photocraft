@@ -1,17 +1,22 @@
+> **Iride — independent macOS ARM fork maintained by [frangled123](https://github.com/frangled123).**
+> Native Apple Silicon builds, original ribbon branding, and system light/dark/tinted icons.
+> See [local build and upstream-sync instructions](docs/macos-arm-fork.md).
+> The documentation below also describes upstream features and releases; this fork is not an official ArtCraft release.
+
 <p align="center">
-  <a href="https://getartcraft.com/">
+  <a href="https://github.com/frangled123/photocraft">
     <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="docs/brand/artcraft-logo-white.svg">
-      <img alt="ArtCraft" src="docs/brand/artcraft-logo.svg" width="200">
+      <source media="(prefers-color-scheme: dark)" srcset="docs/brand/ribbon-mark-dark.svg">
+      <img alt="Independent ribbon suite" src="docs/brand/ribbon-mark-light.svg" width="88">
     </picture>
   </a>
 </p>
 
 <p align="center">
-  <img src="assets/app-icon/hicolor/256x256/apps/ai.storyteller.photocraft.png" width="128" height="128" alt="PhotoCraft icon: an engraved nine-tailed fox on a blue tile">
+  <img src="assets/app-icon/hicolor/256x256/apps/ai.storyteller.photocraft.png" width="128" height="128" alt="Iride ribbon app icon">
 </p>
 
-<h1 align="center">PhotoCraft</h1>
+<h1 align="center">Iride</h1>
 
 <p align="center">
   <b>Image editing; an open-source, clean-room reimplementation of Adobe Photoshop, rebuilt in pure Rust.</b><br>
@@ -451,16 +456,13 @@ with its author, source and license in [ATTRIBUTION.md](ATTRIBUTION.md).
 
 Every artwork shown is in the public domain (Wikimedia Commons, NASA, U.S. National Archives); sources are listed in [`docs/images/SOURCES.md`](docs/images/SOURCES.md).
 
-The ArtCraft name, wordmark and logos in [`docs/brand/`](docs/brand/) are trademarks of the
-ArtCraft Team and are not covered by this license. They may be used only unmodified, and only as
-part of this repository and PhotoCraft, under [`docs/brand/LICENSE-brand.txt`](docs/brand/LICENSE-brand.txt).
-Forks and modified versions must remove them.
+The restricted upstream ArtCraft graphics have been removed from this fork. The original ribbon artwork in `docs/brand/` and `assets/app-icon/` is MIT OR Apache-2.0; see [its licence](docs/brand/LICENSE-ribbon.txt). Original code and contributor notices remain intact.
 
 <sub>Adobe, Photoshop, Illustrator, Premiere Pro, Lightroom, Acrobat, After Effects and InDesign are trademarks or registered trademarks of Adobe Inc. in the United States and/or other countries. PhotoCraft is an independent, open-source project and is not affiliated with, sponsored by or endorsed by Adobe Inc.; these names are used only to describe the workflows it is compatible with.</sub>
 
 <p align="center">
-  <a href="https://getartcraft.com/"><img alt="ArtCraft" src="docs/brand/artcraft-mark.svg" width="28"></a><br>
-  <sub>Made by the <a href="https://getartcraft.com/">ArtCraft</a> team and community.</sub>
+  <a href="https://github.com/frangled123/photocraft"><img alt="Independent ribbon suite" src="docs/brand/ribbon-mark-light.svg" width="28"></a><br>
+  <sub>Based on the upstream project by the ArtCraft team and community; this fork is independently maintained.</sub>
 </p>
 
 ## Star history

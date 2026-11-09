@@ -231,5 +231,28 @@ pub(super) fn translated_menu_label(lang: crate::i18n::Lang, item: &MenuItem) ->
     {
         return crate::i18n::tr_id(lang, &item.id, "Quick Export as PNG").replace("PNG", fmt);
     }
-    crate::i18n::tr_id(lang, &item.id, &item.label).to_string()
+    let label = crate::i18n::tr_id(lang, &item.id, &item.label);
+    crate::branding::menu_text(&item.id, label).into_owned()
+}
+
+#[cfg(test)]
+mod branding_tests {
+    use super::*;
+
+    #[test]
+    fn rebranding_preserves_product_words_inside_document_names() {
+        let mut item = MenuItem {
+            id: "file.openRecent".into(),
+            label: "PhotoCraft source.psd".into(),
+            path: Vec::new(),
+            shortcut: None,
+            enabled: true,
+            checked: None,
+            color: None,
+        };
+        assert_eq!(translated_menu_label(crate::i18n::Lang::EN, &item), "PhotoCraft source.psd");
+        item.id = "help.about".into();
+        item.label = "About PhotoCraft".into();
+        assert_eq!(translated_menu_label(crate::i18n::Lang::EN, &item), "About Iride");
+    }
 }

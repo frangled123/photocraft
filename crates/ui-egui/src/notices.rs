@@ -83,7 +83,7 @@ pub(crate) fn paste_hint(app: &PhotocraftApp) -> String {
 /// fall back to, so the clipboard may hold an image all the same. Say so, and give the command
 /// that starts this install under XWayland, where the X11 clipboard works, when there is one.
 pub fn clipboard_unreadable(app: &mut PhotocraftApp) {
-    app.ui.status = tl!("Nothing to paste: PhotoCraft can't read the system clipboard here").into();
+    app.ui.status = crate::branding::text(tl!("Nothing to paste: PhotoCraft can't read the system clipboard here")).into_owned();
     app.ui.status_error = false;
     if app.ui.notices.iter().any(|notice| notice.title == CLIPBOARD_UNREADABLE) {
         return;
@@ -312,7 +312,7 @@ mod tests {
             let r = crate::menus::invoke(&mut app, &ctx, "edit.paste", serde_json::json!({})).unwrap();
             assert_eq!(r["pasted"], serde_json::json!(false));
         }
-        assert_eq!(app.ui.status, "Nothing to paste: PhotoCraft can't read the system clipboard here");
+        assert_eq!(app.ui.status, "Nothing to paste: Iride can't read the system clipboard here");
         let shown: Vec<_> = app.ui.notices.iter().filter(|notice| notice.title == CLIPBOARD_UNREADABLE).collect();
         assert_eq!(shown.len(), 1, "a second paste doesn't stack another notice");
         let guidance = english(shown[0]);

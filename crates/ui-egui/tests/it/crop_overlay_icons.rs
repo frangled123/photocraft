@@ -148,6 +148,7 @@ fn the_canvas_crop_menu_lists_a_glyph_per_overlay() {
     let mut h = Harness::builder().with_size(egui::vec2(1200.0, 800.0)).with_max_steps(64).with_accessibility_check(false).build_eframe(|cc| {
         photocraft_ui_egui::PhotocraftApp::setup_context(&cc.egui_ctx, Default::default());
         let mut app = photocraft_ui_egui::PhotocraftApp::new(photocraft_engine::Session::new(), photocraft_ui_egui::Services::default());
+        app.run("prefs.set", serde_json::json!({"path": "interface.language", "value": "en"})).expect("test language");
         app.run("file.new", serde_json::json!({"name": "crop menu", "width": 400, "height": 300})).expect("new document");
         app.ui.tool = Tool::Crop;
         photocraft_ui_egui::crop_ui::ensure_frame(&mut app);
