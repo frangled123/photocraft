@@ -174,15 +174,16 @@ fn render_start_rail(app: &mut PhotocraftApp, ui: &mut egui::Ui, rail_w: f32) {
 
     ui.add_space(8.0);
 
-    render_rail_link(app, ui, rail_w, tl!("Website"), "link", crate::links::APP_PAGE);
-    render_rail_link(app, ui, rail_w, tl!("Discord"), "message-square", crate::links::DISCORD);
-    render_rail_link(app, ui, rail_w, tl!("GitHub"), "link-2", crate::links::GITHUB);
+    render_rail_link(app, ui, rail_w, crate::branding::fork_label("Upstream website"), "link", crate::links::APP_PAGE);
+    render_rail_link(app, ui, rail_w, crate::branding::fork_label("Upstream community"), "message-square", crate::links::DISCORD);
+    render_rail_link(app, ui, rail_w, crate::branding::fork_label("Iride source code"), "link-2", crate::links::GITHUB);
 }
 
 fn render_rail_link(app: &mut PhotocraftApp, ui: &mut egui::Ui, rail_w: f32, label: &str, icon_name: &str, url: &str) {
     let t = crate::theme::Tokens::get(ui.ctx());
     let (rect, resp) = ui.allocate_exact_size(egui::vec2(rail_w, 28.0), Sense::click());
     let resp = resp.on_hover_cursor(egui::CursorIcon::PointingHand).on_hover_text(url);
+    resp.widget_info(|| egui::WidgetInfo::labeled(egui::Role::Button, ui.is_enabled(), label));
     if resp.hovered() {
         ui.painter().rect_filled(rect, 4.0, t.hover);
     }
@@ -199,12 +200,10 @@ fn render_start_content(app: &mut PhotocraftApp, ui: &mut egui::Ui, recent: &[St
     let t = crate::theme::Tokens::get(ui.ctx());
     ui.add_space(8.0);
 
-    // Top Row: [01] PhotoCraft
+    // App identity uses the same appearance-aware ribbon as the title bar.
     ui.horizontal(|ui| {
-        let badge_size = egui::vec2(24.0, 19.0);
-        let (badge_rect, _) = ui.allocate_exact_size(badge_size, Sense::hover());
-        ui.painter().rect_filled(badge_rect, 3.0, egui::Color32::from_rgb(26, 115, 232));
-        ui.painter().text(badge_rect.center(), egui::Align2::CENTER_CENTER, "01", crate::theme::semibold(10.5), egui::Color32::WHITE);
+        let (badge_rect, _) = ui.allocate_exact_size(egui::vec2(28.0, 28.0), Sense::hover());
+        crate::panels::brand::paint_mark(ui, badge_rect);
 
         ui.add_space(10.0);
 

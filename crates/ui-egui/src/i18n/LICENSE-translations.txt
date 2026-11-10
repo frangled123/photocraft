@@ -85,3 +85,7 @@ localisation resource was used.
 Tamil translations: @newsbaba24x7 and PhotoCraft contributors, original translations of
 PhotoCraft's English labels written from their plain meaning; no proprietary localisation
 resource was used.
+
+2026: frangled123 added original Simplified and Traditional Chinese translations
+for the native About/Hide/Quit templates and standard App-menu labels.
+These additions are licensed MIT OR Apache-2.0.

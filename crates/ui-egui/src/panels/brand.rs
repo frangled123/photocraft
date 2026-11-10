@@ -10,6 +10,10 @@ const DARK_ICON_PNG: &[u8] = include_bytes!("../../../../assets/app-icon/photocr
 /// The icon's pixels (one transparent pixel if it couldn't be decoded, which a test rules out).
 fn decode(dark: bool) -> egui::ColorImage {
     let png = if dark { DARK_ICON_PNG } else { ICON_PNG };
+    decode_png(png)
+}
+
+fn decode_png(png: &[u8]) -> egui::ColorImage {
     let rgba = photocraft_codecs::decode(png).ok().map(|img| img.convert(ChannelLayout::Rgba, SampleType::U8));
     match rgba {
         Some(img) if img.data().len() == img.width() as usize * img.height() as usize * 4 => {
@@ -50,9 +54,54 @@ pub fn mark_rect(ctx: &Context) -> Option<Rect> {
     ctx.data(|d| d.get_temp(rect_id()))
 }
 
+/// Decode the shared mark directly: these apps do not install egui's PNG ImageLoader.
+fn suite_texture(ctx: &Context) -> TextureHandle {
+    let dark = ctx.global_style().visuals.dark_mode;
+    let id = Id::unique("fork-suite-ribbon").with(dark);
+    if let Some(tex) = ctx.data(|d| d.get_temp::<TextureHandle>(id)) {
+        return tex;
+    }
+    let png: &[u8] =
+        if dark { include_bytes!("../../../../docs/brand/ribbon-mark-dark.png") } else { include_bytes!("../../../../docs/brand/ribbon-mark-light.png") };
+    let tex = ctx.load_texture("fork-suite-ribbon", decode_png(png), TextureOptions::LINEAR);
+    ctx.data_mut(|d| d.insert_temp(id, tex.clone()));
+    tex
+}
+
+/// Show the shared ribbon without depending on optional image-loader features.
+pub fn suite_mark(ui: &mut Ui, size: f32) -> egui::Response {
+    let tex = suite_texture(ui.ctx());
+    ui.add(
+        egui::Image::new((tex.id(), tex.size_vec2()))
+            .fit_to_exact_size(egui::vec2(size, size))
+            .alt_text(crate::branding::fork_label("Independent ribbon suite")),
+    )
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn shared_ribbon_renders_in_both_themes_without_image_loaders() {
+        let ctx = Context::default();
+        let mut ids = Vec::new();
+        for theme in [egui::ThemePreference::Light, egui::ThemePreference::Dark] {
+            ctx.set_theme(theme);
+            let texture = suite_texture(&ctx);
+            assert!(texture.size()[0] > 1 && texture.size()[1] > 1);
+            let out = ctx.run_ui(egui::RawInput::default(), |ui| {
+                suite_mark(ui, 28.0);
+            });
+            // Image widgets may use a textured RectShape before tessellation. Verify the
+            // actual mesh submitted to the renderer instead of an internal shape variant.
+            let primitives = ctx.tessellate(out.shapes, out.pixels_per_point);
+            assert!(primitives.iter().any(|shape| matches!(&shape.primitive, egui::epaint::Primitive::Mesh(mesh) if mesh.texture_id == texture.id())));
+            assert_eq!(suite_texture(&ctx).id(), texture.id());
+            ids.push(texture.id());
+        }
+        assert_ne!(ids[0], ids[1]);
+    }
 
     #[test]
     fn theme_switch_selects_and_reuses_the_matching_texture() {

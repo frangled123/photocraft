@@ -11,14 +11,87 @@ pub fn text(value: &str) -> Cow<'_, str> {
     Cow::Owned(value.replace("PdfCraft", "Aevum").replace("PhotoCraft", "Iride").replace("VectorCraft", "Nodus"))
 }
 
-/// Rebrand the app's About command while preserving document, preset and upstream-link labels.
+/// Localized wording owned by this fork, separate from upstream translation keys.
+/// English is the fallback; existing app translations continue through `i18n`.
+pub fn fork_label(source: &str) -> &str {
+    fork_label_in(crate::i18n::current().code(), source)
+}
+
+fn fork_label_in<'a>(locale: &str, source: &'a str) -> &'a str {
+    match (locale, source) {
+        ("zh-hans", "Independent macOS ARM build") => "独立维护的 macOS ARM 版本",
+        ("zh-hant", "Independent macOS ARM build") => "獨立維護的 macOS ARM 版本",
+        ("zh-hans", "Independent macOS ARM fork") => "独立维护的 macOS ARM 分支",
+        ("zh-hant", "Independent macOS ARM fork") => "獨立維護的 macOS ARM 分支",
+        ("zh-hans", "Fork source and upstream project resources.") => "本分支源代码与上游项目资源。",
+        ("zh-hant", "Fork source and upstream project resources.") => "本分支原始碼與上游專案資源。",
+        ("zh-hans", "Upstream community") => "上游社区（Discord）",
+        ("zh-hant", "Upstream community") => "上游社群（Discord）",
+        ("zh-hans", "Upstream website") => "上游网站",
+        ("zh-hant", "Upstream website") => "上游網站",
+        ("zh-hans", "Upstream ArtCraft website") => "上游 ArtCraft 网站",
+        ("zh-hant", "Upstream ArtCraft website") => "上游 ArtCraft 網站",
+        ("zh-hans", "Independent ribbon suite") => "色带系列标志",
+        ("zh-hant", "Independent ribbon suite") => "色帶系列標誌",
+        ("zh-hans", "Upstream PhotoCraft website") => "上游 PhotoCraft 网站",
+        ("zh-hant", "Upstream PhotoCraft website") => "上游 PhotoCraft 網站",
+        ("zh-hans", "Iride source code") => "Iride 源代码",
+        ("zh-hant", "Iride source code") => "Iride 原始碼",
+        _ => source,
+    }
+}
+
+/// Link labels identify the fork and the upstream destination without changing command ids.
+pub fn link_text(command: &str) -> Option<&'static str> {
+    let source = match command {
+        "help.discord" => "Upstream community",
+        "help.github" => "Iride source code",
+        "help.website" => "Upstream PhotoCraft website",
+        "help.artcraftWebsite" => "Upstream ArtCraft website",
+        _ => return None,
+    };
+    Some(fork_label(source))
+}
+
+/// Rebrand owned commands without altering document names, presets or file-format labels.
 pub fn menu_text<'a>(command: &str, value: &'a str) -> Cow<'a, str> {
-    if command == "help.about" { text(value) } else { Cow::Borrowed(value) }
+    if let Some(label) = link_text(command) {
+        Cow::Borrowed(label)
+    } else if command == "help.about" {
+        text(value)
+    } else {
+        Cow::Borrowed(value)
+    }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn chinese_native_menu_templates_are_translated() {
+        for code in ["zh-hans", "zh-hant"] {
+            let lang = crate::i18n::Lang::from_code(code).unwrap();
+            for source in ["About {app}", "Hide {app}", "Quit {app}", "Settings", "Services", "Hide Others", "Show All"] {
+                let label = crate::i18n::tr(lang, source);
+                assert_ne!(label, source, "{code}: {source}");
+                assert_eq!(label.contains("{app}"), source.contains("{app}"));
+            }
+        }
+    }
+
+    #[test]
+    fn fork_labels_localize_without_renaming_upstream_or_user_content() {
+        for (code, suffix) in [("zh-hans", "源代码"), ("zh-hant", "原始碼")] {
+            let source = format!("{APP_NAME} source code");
+            assert!(fork_label_in(code, &source).ends_with(suffix));
+            assert!(fork_label_in(code, "Upstream ArtCraft website").contains("ArtCraft"));
+            assert!(!fork_label_in(code, "Independent macOS ARM build").starts_with("Independent"));
+        }
+        assert_eq!(fork_label_in("fr", "Unknown text"), "Unknown text");
+        assert_eq!(menu_text("file.openRecent", "PhotoCraft draft.pdf"), "PhotoCraft draft.pdf");
+        assert_eq!(menu_text("presets.choose", "PhotoCraft Defaults"), "PhotoCraft Defaults");
+    }
+
     #[test]
     fn product_names_change_after_translation_but_normal_text_stays_borrowed() {
         assert_eq!(text("关于 PhotoCraft"), "关于 Iride");

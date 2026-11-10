@@ -3324,3 +3324,12 @@ smartSvg	AI/PDF/EPS contents will be edited as SVG. Saving replaces the embedded
 # RAW Develop feature labels
 	RAW Develop	RAW 显影
 	RAW Develop Filter	RAW 显影滤镜
+
+# Native App-menu wording completed for the independent fork (frangled123).
+	About {app}	关于 {app}
+	Hide {app}	隐藏 {app}
+	Quit {app}	退出 {app}
+	Settings	设置
+	Services	服务
+	Hide Others	隐藏其他
+	Show All	显示全部

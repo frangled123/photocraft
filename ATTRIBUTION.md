@@ -214,3 +214,5 @@ longer used or shipped.
 | `assets/app-icon/photocraft-dark-128.png` | frangled123 | Original ribbon v3 dark palette, rendered by `packaging/icons.sh` | MIT OR Apache-2.0 (`assets/app-icon/LICENSE.txt`) | In-app dark-theme icon |
 
 The DMG background retains the upstream layout and outlined labels. Its replacement ribbon artwork and accent adaptation are by frangled123, MIT OR Apache-2.0.
+
+Native App-menu Simplified and Traditional Chinese additions in the existing translation catalogs: original translations by frangled123 (2026), MIT OR Apache-2.0; see `crates/ui-egui/src/i18n/LICENSE-translations.txt`.

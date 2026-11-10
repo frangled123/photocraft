@@ -37,3 +37,7 @@ Resolve conflicts while retaining the ribbon assets, native icon compilation, bu
 ## Publish an update later
 
 A commit or branch push is not an application update. A new GitHub Release needs a version higher than the installed application and the matching ARM DMG. Increase the application version in the Cargo workspace before compiling; changing only the archive filename is insufficient. The updater accepts the renamed artifact stems (`aevum`, `iride`, `nodus`) and checks only this fork’s repository.
+
+## Language and upstream links
+
+The default interface language follows the operating system. The original language catalogs and language selector remain available. App names remain Aevum, Iride and Nodus in every language. This fork adds Simplified and Traditional Chinese wording for its own branding and source links; other languages use English for those added labels until translated. Upstream websites and Discord are explicitly identified as upstream resources. Source-code links lead to this fork.

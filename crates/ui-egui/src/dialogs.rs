@@ -824,13 +824,8 @@ fn about_tab_body(app: &mut PhotocraftApp, ui: &mut egui::Ui, tab: &str) {
         _ => {
             ui.label(crate::branding::text(tl!("PhotoCraft — an open-source, native image editor written in Rust.")).as_ref());
             ui.horizontal(|ui| {
-                let (uri, bytes): (&str, &'static [u8]) = if ui.visuals().dark_mode {
-                    ("bytes://ribbon-mark-dark.png", include_bytes!("../../../docs/brand/ribbon-mark-dark.png"))
-                } else {
-                    ("bytes://ribbon-mark-light.png", include_bytes!("../../../docs/brand/ribbon-mark-light.png"))
-                };
-                ui.add(egui::Image::from_bytes(uri, bytes).fit_to_exact_size(egui::vec2(28.0, 28.0)).alt_text("Independent ribbon suite"));
-                ui.label(tl!("Independent macOS ARM build"));
+                crate::brand::suite_mark(ui, 28.0);
+                ui.label(crate::branding::fork_label("Independent macOS ARM build"));
             });
             ui.label(crate::i18n::fmt(tl!("Version {version}"), &[("version", &photocraft_engine::build_info::long_version())]));
             ui.add_space(12.0);
