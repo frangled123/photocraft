@@ -90,12 +90,13 @@ mod tests {
             ctx.set_theme(theme);
             let texture = suite_texture(&ctx);
             assert!(texture.size()[0] > 1 && texture.size()[1] > 1);
-            let out = ctx.run_ui(egui::RawInput::default(), |ui| {
+            let mut out = ctx.run_ui(egui::RawInput::default(), |ui| {
                 suite_mark(ui, 28.0);
             });
             // Image widgets may use a textured RectShape before tessellation. Verify the
             // actual mesh submitted to the renderer instead of an internal shape variant.
             let primitives = ctx.tessellate(out.shapes, out.pixels_per_point);
+            out.textures_delta.clear();
             assert!(primitives.iter().any(|shape| matches!(&shape.primitive, egui::epaint::Primitive::Mesh(mesh) if mesh.texture_id == texture.id())));
             assert_eq!(suite_texture(&ctx).id(), texture.id());
             ids.push(texture.id());
