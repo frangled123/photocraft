@@ -3,11 +3,52 @@
   "source_sha": "b1374ccc7884558bdcfc13949bb8a108fcf19617",
   "version": "0.23.2",
   "trigger": "refs/tags/fork-release/v0.23.2-attempt.1",
-  "status": "running",
+  "status": "success",
   "run_id": "43380175810",
   "run_attempt": "1",
   "run_url": "https://github.com/frangled123/photocraft/actions/runs/43380175810",
-  "updated_utc": "2026-11-13T06:39:40.126078+00:00",
-  "steps": {},
-  "assets": []
+  "updated_utc": "2026-11-13T07:53:30.932847+00:00",
+  "steps": {
+    "source": {
+      "outcome": "success",
+      "conclusion": "success"
+    },
+    "inputs": {
+      "outcome": "success",
+      "conclusion": "success"
+    },
+    "translations": {
+      "outcome": "success",
+      "conclusion": "success"
+    },
+    "build": {
+      "outcome": "success",
+      "conclusion": "success"
+    },
+    "packages": {
+      "outcome": "success",
+      "conclusion": "success"
+    },
+    "release": {
+      "outcome": "success",
+      "conclusion": "success"
+    }
+  },
+  "assets": [
+    {
+      "name": "SHA256SUMS.txt",
+      "size": 198,
+      "sha256": "d7ca78c51e13afa9fb013f8db805ada263bf00c9767af7c254919e8fa0ea2651"
+    },
+    {
+      "name": "iride-0.23.2-macos-aarch64.dmg",
+      "size": 145009782,
+      "sha256": "2102f5e0a7dcd3a6e26c98b4209a36af0d4a01912e5c74be733bf89a5e71af2a"
+    },
+    {
+      "name": "iride-cli-0.23.2-macos-aarch64.zip",
+      "size": 63465749,
+      "sha256": "f9cd2c3031ec26c9548458c898c5779ba1cfdded49e01e7f98d029b37d642197"
+    }
+  ]
 }
