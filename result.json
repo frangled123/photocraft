@@ -1,0 +1,13 @@
+{
+  "repository": "frangled123/photocraft",
+  "source_sha": "b1374ccc7884558bdcfc13949bb8a108fcf19617",
+  "version": "0.23.2",
+  "trigger": "refs/tags/fork-release/v0.23.2-attempt.1",
+  "status": "running",
+  "run_id": "43380175810",
+  "run_attempt": "1",
+  "run_url": "https://github.com/frangled123/photocraft/actions/runs/43380175810",
+  "updated_utc": "2026-11-13T06:39:40.126078+00:00",
+  "steps": {},
+  "assets": []
+}
