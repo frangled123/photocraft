@@ -2,8 +2,8 @@
 //!
 //! A desktop launch has no console — release builds are GUI-subsystem apps on Windows — so the
 //! `Err` that ends `main` used to vanish and PhotoCraft "just closed". This shows one native
-//! dialog with the error, the renderer that was tried and the log file to attach. The text is
-//! English diagnostics, like Help › System Info, so a bug report reads the same in every language.
+//! dialog with the error, the renderer that was tried and the log file to attach. The surrounding
+//! labels follow the saved/system language; diagnostic values remain unchanged for bug reports.
 //!
 //! Terminal and automation launches keep the old behaviour: they can read standard error or the
 //! exit status, and a modal dialog would leave a script waiting.
@@ -38,13 +38,15 @@ fn has_display() -> bool {
 /// The dialog's text: the error, the renderer that was tried and why it wasn't the preference,
 /// the version and, when one was opened, the log file.
 pub fn text(error: &str, renderer: &str, note: Option<&str>, version: &str, log: Option<&Path>) -> String {
-    let mut text = format!("PhotoCraft could not start.\n\n{error}\n\nRenderer: {renderer}");
+    use photocraft_ui_egui::{branding, i18n};
+    let template = branding::text(i18n::t("PhotoCraft could not start.\n\n{error}\n\nRenderer: {renderer}"));
+    let mut text = i18n::fmt(&template, &[("error", error), ("renderer", renderer)]);
     if let Some(note) = note {
-        text.push_str(&format!("\nStartup: {note}"));
+        text.push_str(&i18n::fmt(i18n::t("\nStartup: {note}"), &[("note", note)]));
     }
-    text.push_str(&format!("\nVersion: {version}"));
+    text.push_str(&i18n::fmt(i18n::t("\nVersion: {version}"), &[("version", version)]));
     if let Some(path) = log {
-        text.push_str(&format!("\nLog file: {}", path.display()));
+        text.push_str(&i18n::fmt(i18n::t("\nLog file: {path}"), &[("path", &path.display().to_string())]));
     }
     text
 }
@@ -52,12 +54,23 @@ pub fn text(error: &str, renderer: &str, note: Option<&str>, version: &str, log:
 /// Show [`text`] in a native error dialog. Called after the event loop returned, so nothing is
 /// repainting and the launch was about to fail anyway.
 pub fn show(error: &str, renderer: &str, note: Option<&str>, log: Option<&Path>) {
+    use photocraft_ui_egui::i18n;
+    use std::io::Read as _;
+    // Renderer startup can fail before the UI has loaded its language. Read the same preference,
+    // with a bound on malformed settings, and restore this thread's language after the dialog.
+    let prefs = crate::services::prefs_file().and_then(|path| {
+        let mut contents = String::new();
+        std::fs::File::open(path).ok()?.take(1024 * 1024).read_to_string(&mut contents).ok()?;
+        serde_json::from_str::<photocraft_engine::prefs::Preferences>(&contents).ok()
+    });
+    let language = prefs.unwrap_or_default().interface.language;
+    let _language = i18n::language_scope(i18n::Lang::from_pref(&language));
     let version = photocraft_engine::build_info::long_version();
     let body = text(error, renderer, note, &version, log);
     log::info!("showing the startup-failure dialog");
     let _ = rfd::MessageDialog::new()
         .set_level(rfd::MessageLevel::Error)
-        .set_title(photocraft_ui_egui::i18n::t("PhotoCraft could not start"))
+        .set_title(photocraft_ui_egui::branding::text(photocraft_ui_egui::i18n::t("PhotoCraft could not start")))
         .set_description(body)
         .set_buttons(rfd::MessageButtons::Ok)
         .show();
@@ -66,6 +79,27 @@ pub fn show(error: &str, renderer: &str, note: Option<&str>, log: Option<&Path>)
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn startup_branding_preserves_the_error_and_log_path() {
+        let body = text("PhotoCraft document.png failed", "glow", None, "1.0.0", Some(Path::new("PhotoCraft.log")));
+        assert!(body.starts_with("Iride could not start."));
+        assert!(body.contains("PhotoCraft document.png failed"));
+        assert!(body.contains("PhotoCraft.log"));
+    }
+
+    #[test]
+    fn startup_report_uses_both_chinese_catalogs_without_translating_diagnostics() {
+        use photocraft_ui_egui::i18n;
+        for (code, expected) in [("zh-hans", "Iride 无法启动。"), ("zh-hant", "Iride 無法啟動。")] {
+            let Some(language) = i18n::Lang::from_code(code) else { continue };
+            i18n::with_language(language, || {
+                let body = text("PhotoCraft document.png failed", "glow", None, "1.0.0", None);
+                assert!(body.starts_with(expected));
+                assert!(body.contains("PhotoCraft document.png failed"));
+            });
+        }
+    }
 
     #[test]
     fn a_desktop_launch_asks_the_user_and_a_script_does_not() {

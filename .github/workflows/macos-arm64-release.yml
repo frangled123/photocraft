@@ -1,0 +1,95 @@
+name: macOS ARM64 fork release
+
+on:
+  push:
+    tags: ['fork-release/v*']
+  workflow_dispatch:
+    inputs:
+      source_sha:
+        description: Exact reviewed 40-character macos-arm64 commit
+        type: string
+        required: true
+      publish:
+        description: Publish as Latest after all package and uploaded-asset checks
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: macos-arm64-release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    if: github.repository == 'frangled123/photocraft' && (github.ref == 'refs/heads/macos-arm64' || startsWith(github.ref, 'refs/tags/fork-release/v'))
+    runs-on: macos-26
+    timeout-minutes: 180
+    defaults:
+      run:
+        shell: bash
+    permissions:
+      contents: write
+    env:
+      EXPECTED_SHA: ${{ github.event_name == 'push' && github.sha || inputs.source_sha }}
+      PUBLISH_RELEASE: ${{ github.event_name == 'push' || inputs.publish }}
+      CARGO_BUILD_JOBS: '2'
+      CARGO_INCREMENTAL: '0'
+      CARGO_PROFILE_RELEASE_DEBUG: '0'
+      CARGO_PROFILE_RELEASE_LTO: 'off'
+      CARGO_PROFILE_RELEASE_CODEGEN_UNITS: '16'
+      MACOS_SIGN_IDENTITY: '-'
+      CRAFT_FONTS_REQUIRED: '1'
+      CRAFT_I18N_REQUIRED: '1'
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Announce public runner status
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BUILD_STATUS: running
+        run: python3 packaging/fork/report-result.py
+      - name: Verify reviewed source and protected artwork
+        id: source
+        run: |
+          test "$(uname -m)" = arm64
+          test "$(uname -s)" = Darwin
+          python3 packaging/fork/verify-source.py --release
+          df -h .
+          xcodebuild -version
+      - name: Install pinned Rust and verified public inputs
+        id: inputs
+        run: |
+          rustup toolchain install 1.95.0 --profile minimal --component rustfmt
+          rustup default 1.95.0
+          rustup target add aarch64-apple-darwin
+          python3 packaging/fork/prepare-inputs.py "$RUNNER_TEMP/fork-inputs" 2>&1 | tee "$RUNNER_TEMP/fork-public-inputs.log"
+      - name: Check formatting and embedded translations
+        id: translations
+        run: |
+          python3 packaging/fork/audit-i18n.py 2>&1 | tee -a "$RUNNER_TEMP/fork-public-translations.log"
+          cargo fmt --all -- --check 2>&1 | tee -a "$RUNNER_TEMP/fork-public-translations.log"
+          cargo test --locked --release --target aarch64-apple-darwin -p photocraft-ui-egui --features photocraft-io/heif --lib i18n:: 2>&1 | tee -a "$RUNNER_TEMP/fork-public-translations.log"
+          cargo test --locked --release --target aarch64-apple-darwin -p photocraft-ui-egui --features photocraft-io/heif --lib brand 2>&1 | tee -a "$RUNNER_TEMP/fork-public-translations.log"
+          cargo test --locked --release --target aarch64-apple-darwin -p photocraft --features heif --test mac_menu_appkit 2>&1 | tee -a "$RUNNER_TEMP/fork-public-translations.log"
+      - name: Build thin ARM application and CLI, with ad-hoc signatures
+        id: build
+        run: packaging/macos/build-arm-local.sh 2>&1 | tee "$RUNNER_TEMP/fork-public-build.log"
+      - name: Verify final DMG and CLI ZIP
+        id: packages
+        run: python3 packaging/fork/verify-package.py 2>&1 | tee "$RUNNER_TEMP/fork-public-packages.log"
+      - name: Upload verified Release assets and optionally publish
+        id: release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 packaging/fork/release.py 2>&1 | tee "$RUNNER_TEMP/fork-public-release.log"
+      - name: Publish public runner result for Git-based monitoring
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BUILD_STATUS: ${{ job.status }}
+          BUILD_STEPS: ${{ toJSON(steps) }}
+        run: python3 packaging/fork/report-result.py

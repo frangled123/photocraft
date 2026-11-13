@@ -208,6 +208,19 @@ fn check_native_menu() {
     let window = submenu(&main_menu(), "Window");
     assert!(checked(&window, rows[0]) && !checked(&window, rows[1]), "the check moved in place");
 
+    // Verify the actual AppKit menu after switching both Chinese variants, including the
+    // fork's app name. Catalog-only assertions cannot catch a stale native menu bar.
+    for (code, expected) in [("zh-hans", ["关于 Iride", "隐藏 Iride", "退出 Iride"]), ("zh-hant", ["關於 Iride", "隱藏 Iride", "結束 Iride"])] {
+        app.run("prefs.set", json!({"path": "interface.language", "value": code})).unwrap();
+        photocraft_ui_egui::i18n::set_current(photocraft_ui_egui::i18n::Lang::from_code(code).unwrap());
+        frame(&mut app, egui::RawInput::default());
+        let app_menu = submenu(&main_menu(), "Iride");
+        let shown = titles(&app_menu);
+        for label in expected {
+            assert!(shown.iter().any(|title| title == label), "{code}: missing {label} in {shown:?}");
+        }
+    }
+
     println!("mac_menu_appkit: ok");
 }
 

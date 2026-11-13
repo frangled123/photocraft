@@ -1,0 +1,158 @@
+{
+  "repository": "frangled123/photocraft",
+  "command": "photocraft",
+  "app": "Iride",
+  "version": "0.23.2",
+  "baseline": "09823a2283f6c2cacaed632e55fa2a953f6989a2",
+  "upstream": "e052eabf4be74612725400955d184f85d208c0f0",
+  "rust": "1.95.0",
+  "fonts": "b076417b5880bd4154bd22f00695b1d28c6bea83",
+  "i18n": "e02939ef009218e81c44e8ec001fbb7603461de4",
+  "artwork": [
+    {
+      "path": "assets/app-icon/Iride.icon/Assets/ribbon-dark.svg",
+      "mode": "100644",
+      "sha": "7ae945ee0af06d9609ec491d68c86f37e74720e1"
+    },
+    {
+      "path": "assets/app-icon/Iride.icon/Assets/ribbon-light.svg",
+      "mode": "100644",
+      "sha": "5da26e85c7ed77ed469dacda991e2466878cfe52"
+    },
+    {
+      "path": "assets/app-icon/Iride.icon/Assets/ribbon-mono.svg",
+      "mode": "100644",
+      "sha": "0e3c9d1c72256b4d2a34a52dffece21d531fad21"
+    },
+    {
+      "path": "assets/app-icon/Iride.icon/icon.json",
+      "mode": "100644",
+      "sha": "08267763596ad28703a311f9d0f88b45afd39e29"
+    },
+    {
+      "path": "assets/app-icon/hicolor/128x128/apps/ai.storyteller.photocraft.png",
+      "mode": "100644",
+      "sha": "ba508b1f27f88561f405d489652aeb9444b3403d"
+    },
+    {
+      "path": "assets/app-icon/hicolor/16x16/apps/ai.storyteller.photocraft.png",
+      "mode": "100644",
+      "sha": "e935dedebe8485e409fa45f26f25e3e5ff41e766"
+    },
+    {
+      "path": "assets/app-icon/hicolor/24x24/apps/ai.storyteller.photocraft.png",
+      "mode": "100644",
+      "sha": "d86f0f41cb5688808814e224e330d272162caf16"
+    },
+    {
+      "path": "assets/app-icon/hicolor/256x256/apps/ai.storyteller.photocraft.png",
+      "mode": "100644",
+      "sha": "72679a4748d4a0fb7d3c3a9c47db7dc1574d0994"
+    },
+    {
+      "path": "assets/app-icon/hicolor/32x32/apps/ai.storyteller.photocraft.png",
+      "mode": "100644",
+      "sha": "686aaed1f1e0ba006caa9a7fec090eb31b548109"
+    },
+    {
+      "path": "assets/app-icon/hicolor/48x48/apps/ai.storyteller.photocraft.png",
+      "mode": "100644",
+      "sha": "3c4621058b5090f1cb715269267ef8a890755d85"
+    },
+    {
+      "path": "assets/app-icon/hicolor/512x512/apps/ai.storyteller.photocraft.png",
+      "mode": "100644",
+      "sha": "781f626016152ceee64c4b539dd659ff7099a5e0"
+    },
+    {
+      "path": "assets/app-icon/hicolor/64x64/apps/ai.storyteller.photocraft.png",
+      "mode": "100644",
+      "sha": "8c82cdeaf645d7e4cfd7a1e34c6da4685c46691b"
+    },
+    {
+      "path": "assets/app-icon/hicolor/scalable/apps/ai.storyteller.photocraft.svg",
+      "mode": "100644",
+      "sha": "88419f901788e192b6a4e2a0f922e9e341c83450"
+    },
+    {
+      "path": "assets/app-icon/photocraft-1024.png",
+      "mode": "100644",
+      "sha": "a75c426beba0b7b114afa6a5734809594bbd81c4"
+    },
+    {
+      "path": "assets/app-icon/photocraft-dark-128.png",
+      "mode": "100644",
+      "sha": "0880379d0d5809dc0e8be959301610ab82c74d88"
+    },
+    {
+      "path": "assets/app-icon/photocraft-dark.svg",
+      "mode": "100644",
+      "sha": "83dc79cb78dd2ebf5f6307a9480135504d5ba21a"
+    },
+    {
+      "path": "assets/app-icon/photocraft-small.svg",
+      "mode": "100644",
+      "sha": "88419f901788e192b6a4e2a0f922e9e341c83450"
+    },
+    {
+      "path": "assets/app-icon/photocraft.icns",
+      "mode": "100644",
+      "sha": "663f1d6dda3c9b215a12b2f847fe8978dd986d5f"
+    },
+    {
+      "path": "assets/app-icon/photocraft.ico",
+      "mode": "100644",
+      "sha": "b188c46fed504bcc53f352dadffd6c8884de77de"
+    },
+    {
+      "path": "assets/app-icon/photocraft.svg",
+      "mode": "100644",
+      "sha": "88419f901788e192b6a4e2a0f922e9e341c83450"
+    },
+    {
+      "path": "docs/brand/ribbon-mark-dark.png",
+      "mode": "100644",
+      "sha": "7ad328e22363ac87fc17397eb4ae0cc0be73a0cb"
+    },
+    {
+      "path": "docs/brand/ribbon-mark-dark.svg",
+      "mode": "100644",
+      "sha": "e55cc4f85baec16be965201aed78c74e097b2cf6"
+    },
+    {
+      "path": "docs/brand/ribbon-mark-light.png",
+      "mode": "100644",
+      "sha": "de693b009aba0db00fa000847dcf9ee76fa9105f"
+    },
+    {
+      "path": "docs/brand/ribbon-mark-light.svg",
+      "mode": "100644",
+      "sha": "ec4264dd60fc3d34d3a95cc59c7e20015f2fddbe"
+    },
+    {
+      "path": "docs/brand/ribbon-mark-mono.png",
+      "mode": "100644",
+      "sha": "5d5a41893de6e7fca843033d7725171b577e7ff5"
+    },
+    {
+      "path": "docs/brand/ribbon-mark-mono.svg",
+      "mode": "100644",
+      "sha": "4f87e1e1a75bb694f0b8dc0ac9abb52f298f046d"
+    },
+    {
+      "path": "packaging/macos/dmg/background.svg",
+      "mode": "100644",
+      "sha": "33a28d039c7e022fc52a72caf086a6de13c45053"
+    },
+    {
+      "path": "packaging/macos/dmg/background.tiff",
+      "mode": "100644",
+      "sha": "0760b73647306ed5aa8d1315ede5926493421b25"
+    },
+    {
+      "path": "packaging/macos/dmg/dmg-layout.DS_Store",
+      "mode": "100644",
+      "sha": "199a5f06e138bcc615a034c0b9d8db49714654fe"
+    }
+  ]
+}

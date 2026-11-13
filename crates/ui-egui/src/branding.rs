@@ -70,7 +70,10 @@ mod tests {
     #[test]
     fn chinese_native_menu_templates_are_translated() {
         for code in ["zh-hans", "zh-hant"] {
-            let lang = crate::i18n::Lang::from_code(code).unwrap();
+            let Some(lang) = crate::i18n::Lang::from_code(code) else {
+                assert_ne!(option_env!("CRAFT_I18N_REQUIRED"), Some("1"), "release catalog missing: {code}");
+                continue;
+            };
             for source in ["About {app}", "Hide {app}", "Quit {app}", "Settings", "Services", "Hide Others", "Show All"] {
                 let label = crate::i18n::tr(lang, source);
                 assert_ne!(label, source, "{code}: {source}");
@@ -97,5 +100,52 @@ mod tests {
         assert_eq!(text("关于 PhotoCraft"), "关于 Iride");
         assert_eq!(text("About PdfCraft / VectorCraft"), "About Aevum / Nodus");
         assert!(matches!(text("Open…"), Cow::Borrowed(_)));
+    }
+}
+
+#[cfg(test)]
+mod fork_catalog_tests {
+    #[test]
+    fn committed_chinese_rows_are_present_in_the_embedded_catalogs() {
+        for (code, catalog) in [("zh-hans", include_str!("i18n/fork/zh-hans.tsv")), ("zh-hant", include_str!("i18n/fork/zh-hant.tsv"))] {
+            let Some(lang) = crate::i18n::Lang::from_code(code) else {
+                assert_ne!(option_env!("CRAFT_I18N_REQUIRED"), Some("1"), "release catalog missing: {code}");
+                continue;
+            };
+            for row in catalog.lines().filter(|row| !row.is_empty() && !row.starts_with('#')) {
+                let fields: Vec<_> = row.split('\t').collect();
+                assert_eq!(fields.len(), 3);
+                let source = fields[1].replace("\\n", "\n").replace("\\t", "\t").replace("\\\\", "\\");
+                let translated = fields[2].replace("\\n", "\n").replace("\\t", "\t").replace("\\\\", "\\");
+                if fields[0] == "@plural" {
+                    let (one, other) = source.split_once('|').unwrap();
+                    for n in [0, 1, 2, 100] {
+                        assert_eq!(crate::i18n::trn(lang, n, one, other), translated.replace("{n}", &n.to_string()), "{code}: {source}");
+                    }
+                } else {
+                    assert_eq!(crate::i18n::tr(lang, &source), translated, "{code}: {source}");
+                }
+            }
+        }
+    }
+}
+
+#[cfg(all(test, not(target_arch = "wasm32")))]
+mod fork_release_tests {
+    #[test]
+    fn updates_use_the_fork_and_accept_the_packaged_artifact_stem() {
+        let app = crate::UPDATE_APP;
+        assert_eq!(app.repo, "frangled123/photocraft");
+        assert_eq!(app.name, "Iride");
+        assert!(app.stems().any(|stem| stem == "iride"));
+        assert_eq!(app.bundle_id(), "ai.storyteller.photocraft");
+    }
+
+    #[test]
+    fn macos_declares_every_registered_interface_language() {
+        let plist = include_str!("../../../packaging/macos/Info.plist.in").to_lowercase();
+        for language in &crate::i18n::LANGUAGES {
+            assert!(plist.contains(&format!("<string>{}</string>", language.code)), "{}", language.code);
+        }
     }
 }

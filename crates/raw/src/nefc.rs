@@ -462,7 +462,7 @@ fn decode_strip(src: &[u8], w: usize, h: usize, bits: u32, table: &DecodeTable) 
         let row_bits = w.saturating_mul(word as usize).max(1);
         let pad = left.map(|l| l % row_bits);
         let ones = |k: usize| src.last().is_some_and(|b| u32::from(*b) & ((1 << k) - 1) == (1 << k) - 1);
-        if !left.is_some_and(|l| l / row_bits <= 4) || !pad.is_some_and(|k| k < 8 && ones(k)) {
+        if left.is_none_or(|l| l / row_bits > 4) || !pad.is_some_and(|k| k < 8 && ones(k)) {
             return Err(RawError::malformed(format!("NEF: the fixed-rate section from row {} does not end the strip", table.split)));
         }
     }

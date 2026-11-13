@@ -1,0 +1,268 @@
+# Fork-owned Simplified/Traditional Chinese additions preserved across the craft-i18n migration.
+	About {app}	關於 {app}
+	Hide {app}	隱藏 {app}
+	Quit {app}	結束 {app}
+	Settings	設定
+	Services	服務
+	Hide Others	隱藏其他
+	Show All	顯示全部
+	A file is still being placed; try again when it has finished.	檔案仍在置入中；請在完成後重試。
+	A grey mix that spreads the image's tones	使影像色調分布更均勻的灰階混合
+	Add Anchor Point	新增錨點
+	Advanced Blending	進階混合
+	Align To:	對齊至：
+	Align:	對齊：
+	All open documents	所有開啟的文件
+	Allow Tool Recording	允許錄製工具操作
+	Allows rotation and scaling of selection	允許旋轉和縮放選取範圍
+	Always use Pressure for Opacity. When off, Brush Preset controls pressure	一律以壓力控制不透明度。關閉時由筆刷預設控制壓力
+	Always use Pressure for Size. When off, Brush Preset controls pressure	一律以壓力控制大小。關閉時由筆刷預設控制壓力
+	Answer the open import question first, then import this file again.	請先回答目前的匯入提示，再重新匯入此檔案。
+	Anti-alias brush application	對筆刷筆觸進行消除鋸齒處理
+	Apply to All	全部套用
+	Arrowhead options	箭頭選項
+	Arrowheads	箭頭
+	Attribute	屬性
+	Bottom align text	文字底部對齊
+	CPU Rendering	CPU 算繪
+	Calculating…	正在計算…
+	Cancelled placing {name}	已取消置入 {name}
+	Choose Import as New Group or Replace.	請選擇「匯入為新群組」或「取代」。
+	Choose a menu command. Playback asks for its settings when needed.	選擇一個選單命令。播放時會依需要提示設定。
+	Choose a remix mode	選擇混色模式
+	Click and move left or right to scale using the Zoom Tool (OpenGL only)	按一下並左右移動可使用縮放工具調整比例（僅限 OpenGL）
+	Click to refresh histogram with uncached data	按一下以使用未快取的資料重新整理色階分佈圖
+	Closed document	文件已關閉
+	Concavity	凹度
+	Confirm or cancel the pending Record Again editor first.	請先確認或取消正在處理的「重新錄製」編輯。
+	Confirm or cancel the pending menu item first.	請先確認或取消待處理的選單項目。
+	Could not set the clone source because it does not work with Indexed Color images (convert image to RGB Color mode to edit).	無法設定仿製來源，因為此操作不適用於索引色影像（請將影像轉換為 RGB 色彩模式後再編輯）。
+	Could not use the clone stamp tool because the area to clone has not been defined (Alt-click to define a source point).	無法使用仿製印章工具，因為尚未定義仿製區域（請按住 Alt 鍵並按一下以定義來源點）。
+	Could not use the clone stamp tool because the area to clone has not been defined (Option-click to define a source point).	無法使用仿製印章工具，因為尚未定義仿製區域（請按住 Option 鍵並按一下以定義來源點）。
+	Could not use the magic eraser because it does not work with Bitmap images (convert image to Grayscale mode to edit).	無法使用魔術橡皮擦，因為它不適用於點陣圖影像（請將影像轉換為灰階模式後再編輯）。
+	Could not use the magic eraser because it does not work with Indexed Color images (convert image to RGB Color mode to edit).	無法使用魔術橡皮擦，因為它不適用於索引色影像（請將影像轉換為 RGB 色彩模式後再編輯）。
+	Could not use the type tool because the layer is locked.	無法使用文字工具，因為圖層已鎖定。
+	Could not use the {tool} because the target layer is a group.	無法使用{tool}，因為目標圖層是群組。
+	Count:	數量：
+	Create new set	新增動作集
+	Current document	目前文件
+	Data Sets as Files is unavailable on the web	網頁版不支援將資料集匯出為檔案
+	Delete Anchor Point	刪除錨點
+	Determines the spread of replaced color	決定被取代色彩的擴散範圍
+	Distribute Spacing:	分佈間距：
+	Distribute:	分佈：
+	Do not erase the foreground swatch color	不擦除前景色色票中的色彩
+	Drawn on the CPU: {reason}. Click for System Info.	正在使用 CPU 繪製：{reason}。按一下可檢視系統資訊。
+	Draws background color over foreground colors	以背景色覆蓋前景色彩
+	Dropped files weren't placed: their document was closed.	未置入拖放的檔案：目標文件已關閉。
+	Dropped files weren't placed: too many are waiting for their document.	未置入拖放的檔案：等待置入該文件的檔案過多。
+	Empty	空白
+	Enable to remix all layers	啟用後對所有圖層進行混色
+	End	終點
+	Erase range of similar colors	擦除相近色彩的範圍
+	Erase to History	抹到步驟記錄
+	Estimated file size	預估檔案大小
+	Export As: {name}	匯出為：{name}
+	Feather Radius:	羽化半徑：
+	Filter for embedded smart objects	篩選嵌入的智慧型物件
+	Filter for linked smart objects that are missing	篩選遺失連結的智慧型物件
+	Filter for smart objects linked locally	篩選連結至本機檔案的智慧型物件
+	Flow:	流量：
+	Free Transform Points	自由變形點
+	Gamma	伽瑪
+	High Memory Photoshop Document	高記憶體需求的 Photoshop 文件
+	How far to let the erasing spread	允許擦除擴展的距離
+	Image Compression	影像壓縮
+	Import as New Group	匯入為新群組
+	Import as New Group keeps “{group}” and adds the file as a new group beside it.	「匯入為新群組」會保留「{group}」，並在其旁邊將檔案加入為新群組。
+	Imported {name}	已匯入 {name}
+	Insert Menu Item…	插入選單項目…
+	Insert Path	插入路徑
+	Layer Effects	圖層效果
+	Length	長度
+	Level:	層級：
+	Linked	已連結
+	Little memory would be left after opening this file. Close other apps first, or PhotoCraft may run out of memory.	開啟此檔案後剩餘記憶體會很少。請先關閉其他應用程式，否則 PhotoCraft 可能耗盡記憶體。
+	Make:	建立：
+	Merged	已合併
+	Minimizes clipping in shadows and highlights, and keeps colors from shifting hue	盡量減少陰影和亮部的裁切，並避免色彩發生色相偏移
+	No Adv. Blending	無進階混合
+	No Layer Effects	無圖層效果
+	No Layer Mask	無圖層遮色片
+	No Vector Mask	無向量遮色片
+	No anchor to delete	沒有可刪除的錨點
+	No document.	沒有文件。
+	No import is waiting. Import the file again.	沒有待處理的匯入。請重新匯入檔案。
+	No menu item belongs to this chooser.	沒有屬於此選擇器的選單項目。
+	No menu item is waiting.	沒有待處理的選單項目。
+	No options for the Add Anchor Point Tool.	新增錨點工具沒有可用選項。
+	No options for the Delete Anchor Point Tool.	刪除錨點工具沒有可用選項。
+	No path to make a mask from: draw one with the Pen tool or select one in the Paths panel.	沒有可用於建立遮色片的路徑：請用鋼筆工具繪製路徑，或在路徑面板中選擇一條路徑。
+	No path to make a shape from: draw one with the Pen tool or select one in the Paths panel.	沒有可用於建立形狀的路徑：請用鋼筆工具繪製路徑，或在路徑面板中選擇一條路徑。
+	No pixels are selected.	沒有選取的像素。
+	No recorded step belongs to this editor.	沒有屬於此編輯器的錄製步驟。
+	No slices are selected. Click a slice in the preview to select it.	沒有選取的切片。請在預覽中按一下切片以選取它。
+	No step is waiting.	沒有待處理的步驟。
+	Not Clipped	未剪裁
+	Not Empty	非空白
+	Not Linked	未連結
+	Not Locked	未鎖定
+	Not Visible	不可見
+	Nudge	微移
+	Open anyway	仍然開啟
+	Opening this document uses more memory and may slow down your computer or other running applications.	開啟此文件會占用較多記憶體，可能使電腦或其他執行中的應用程式變慢。
+	Opening “{name}” requires an estimated {est} GiB of memory ({avail} GiB available).	開啟「{name}」預計需要 {est} GiB 記憶體（可用 {avail} GiB）。
+	Opening “{name}” requires an estimated {est} GiB of memory. The available memory could not be measured.	開啟「{name}」預計需要 {est} GiB 記憶體，無法測量目前可用記憶體。
+	Operation	操作
+	Painting Mode	繪畫模式
+	Path alignment	路徑對齊
+	Path arrangement	路徑排列
+	Percentile:	百分位數：
+	Pick Color From Image	從影像取色
+	Preview size	預覽大小
+	Print preview image	列印預覽影像
+	Record Again	重新錄製
+	Reloaded the footage	已重新載入素材
+	Rendering	算繪
+	Replace deletes everything in “{group}” first, including presets you edited or moved there. This can't be undone.	「取代」會先刪除「{group}」中的所有內容，包括您編輯過或移入的預設。此操作無法復原。
+	Reset the warp	重設彎曲變形
+	Resize windows when zooming using the Zoom Tool	使用縮放工具時同時調整視窗大小
+	Rubber Band	橡皮筋
+	Save Image Pyramid	儲存影像金字塔
+	Save Transparency	儲存透明度
+	Scroll all open document windows when using the hand tool	使用掌形工具時捲動所有開啟的文件視窗
+	Search and select fonts	搜尋並選擇字型
+	Select Pixels	選取像素
+	Select an action first.	請先選擇一個動作。
+	Select an action step first.	請先選擇一個動作步驟。
+	Selected Slices	選取的切片
+	Selection…	選取範圍…
+	Set additional pen and path options	設定其他鋼筆和路徑選項
+	Set as default	設為預設值
+	Set exposure for stroke	設定筆觸曝光度
+	Set flow rate for stroke	設定筆觸流量
+	Set font size	設定字級
+	Set font style	設定字型樣式
+	Set opacity for stroke	設定筆觸不透明度
+	Set smoothing for stroke\nUse higher values to reduce the shakiness of brush strokes	設定筆觸平滑度\n使用較高值可減少筆刷筆觸的抖動
+	Set symmetry options for Painting	設定繪畫對稱選項
+	Set text color	設定文字色彩
+	Set the brush angle	設定筆刷角度
+	Show Channels in Color	以彩色顯示色版
+	Show Statistics	顯示統計資訊
+	Smoothing Options	平滑選項
+	Smoothness {s}% · {method}	平滑度 {s}% · {method}
+	Source Layer	來源圖層
+	Source:	來源：
+	Source: document closed	來源：文件已關閉
+	Start	起點
+	The GPU compositor is still being prepared	GPU 合成器仍在準備中
+	The Record Again command changed.	「重新錄製」命令已變更。
+	The action or insertion command changed. Request Insert Menu Item again.	動作或插入命令已變更。請重新執行「插入選單項目」。
+	The actions changed. Request Record Again again.	動作已變更。請重新執行「重新錄製」。
+	The adjustment target is missing or unavailable.	調整目標遺失或無法使用。
+	The command permissions changed. Request Insert Menu Item again.	命令權限已變更。請重新執行「插入選單項目」。
+	The command permissions changed. Request Record Again again.	命令權限已變更。請重新執行「重新錄製」。
+	The current scratch directory ({path}) doesn't report its free space, so PhotoCraft can't stop before it fills up, and large files get no extra room from it without a Scratch Size Limit. This warning applies to the current configuration; changes above take effect on Apply or OK. Set a limit or use a local disk.	目前的暫存目錄（{path}）無法回報可用空間，因此 PhotoCraft 無法在空間耗盡前停止；未設定暫存大小限制時，它也無法為大檔案提供額外空間。此警告針對目前設定；上方的變更在按下「套用」或「確定」後生效。請設定限制或使用本機磁碟。
+	The document changed. Request Record Again again.	文件已變更。請重新執行「重新錄製」。
+	The document or active layer changed. Open Fill again.	文件或作用中圖層已變更。請重新開啟「填滿」。
+	The document or active layer changed. Open Stroke again.	文件或作用中圖層已變更。請重新開啟「筆畫」。
+	The estimate is above 8 GiB and the available memory is unknown, so this process or browser tab may run out of memory. You can still try to open it.	預計記憶體用量超過 8 GiB，且可用記憶體未知，因此此處理程序或瀏覽器分頁可能耗盡記憶體。您仍可嘗試開啟。
+	The preference could not be saved: {error}	無法儲存偏好設定：{error}
+	The step editor could not be opened.	無法開啟步驟編輯器。
+	The step has no command editor.	此步驟沒有命令編輯器。
+	This custom shape can't be added to a shape layer with a path operation: choose New Layer	無法透過路徑運算將此自訂形狀加入形狀圖層；請選擇「新增圖層」
+	This operation will turn a live shape into a regular path. Continue?	此操作會將即時形狀轉換為一般路徑。是否繼續？
+	Toggle Character and Paragraph panels	切換字元和段落面板
+	Tolerance for choosing related colors	選擇相近色彩的容許度
+	Top align text	文字頂部對齊
+	Twirl Counterclockwise	逆時針旋轉扭曲
+	Uncached Refresh	重新整理未快取的資料
+	Use relative positioning for reference point	對參考點使用相對定位
+	Use these settings for new arrows	對新箭頭使用這些設定
+	Useful mixer brush combinations	實用的混合筆刷組合
+	WinTab reads pressure, tilt, rotation and the eraser end from the tablet driver. Turn off Windows Ink in your tablet's software utility (for example Wacom Center) before using it.	WinTab 從繪圖板驅動程式讀取壓力、傾斜、旋轉和橡皮擦端資訊。使用前，請在繪圖板工具軟體（例如 Wacom Center）中關閉 Windows Ink。
+	Zoom current window to 1:1	將目前視窗縮放至 1:1
+	Zoom current window to fill the screen	縮放目前視窗以填滿螢幕
+	Zoom current window to screen size	將目前視窗縮放至螢幕大小
+	blur tool	模糊工具
+	brush tool	筆刷工具
+	burn tool	加深工具
+	dodge tool	加亮工具
+	gradient tool	漸層工具
+	it is a folder, not a file; drop the files inside it instead	這是資料夾而非檔案；請拖放其中的檔案
+	pixels	像素
+	sharpen tool	銳利化工具
+	smudge tool	塗抹工具
+	sponge tool	海綿工具
+	{message} into “{group}”	{message}至「{group}」
+	{ok} written to {dir}	{ok} 已寫入 {dir}
+	A command was canceled or stopped during batch processing. Continue with the next file or stop?	批次處理期間有命令被取消或停止。要繼續處理下一個檔案，還是停止？
+	Are you sure you want to delete all notes?	確定要刪除所有註解嗎？
+	Batch preview	批次處理預覽
+	Click to open the Brush Preset picker	按一下以開啟筆刷預設集選擇器
+	Copy CSS	複製 CSS
+	Count Color	計數顏色
+	Count Group	計數群組
+	Count group color	計數群組顏色
+	Delete Note	刪除註解
+	Delete the currently selected count group	刪除目前選取的計數群組
+	Delete this note?	刪除此註解？
+	LZW	LZW
+	Lining	等高數字
+	Load Solid Colors Only	僅載入純色
+	No matching fonts	沒有符合的字型
+	No note to delete	沒有可刪除的註解
+	Note deleted, but the preference could not be saved: {error}	註解已刪除，但無法儲存偏好設定：{error}
+	Numerals	數字樣式
+	Open as Smart Object…	開啟為智慧型物件…
+	Preparing Free Transform	正在準備自由變形
+	Proportional	比例數字
+	Proportional Lining	比例等高數字
+	Proportional Oldstyle	比例舊式數字
+	Set 	集 
+	Stylistic Sets	樣式集
+	Tabular	等寬數字
+	Tabular Lining	等寬等高數字
+	Tabular Oldstyle	等寬舊式數字
+	The document changed. Please choose Clear All again.	文件已變更。請再次選擇「全部清除」。
+	The document or its notes changed. Please delete the note again.	文件或其中的註解已變更。請再次刪除該註解。
+	Toggle visibility of count group	切換計數群組可見性
+	ZIP	ZIP
+	Set 1	集 1
+	Set 2	集 2
+	Set 3	集 3
+	Set 4	集 4
+	Set 5	集 5
+	Set 6	集 6
+	Set 7	集 7
+	Set 8	集 8
+	Set 9	集 9
+	Set 10	集 10
+	Set 11	集 11
+	Set 12	集 12
+	Set 13	集 13
+	Set 14	集 14
+	Set 15	集 15
+	Set 16	集 16
+	Set 17	集 17
+	Set 18	集 18
+	Set 19	集 19
+	Set 20	集 20
+@plural	The brush group “{group}” already has {n} brush of yours.|The brush group “{group}” already has {n} brushes of yours.	筆刷群組「{group}」已包含您的 {n} 個筆刷。
+@plural	The gradient group “{group}” already exists ({n} gradient).|The gradient group “{group}” already exists ({n} gradients).	漸層群組「{group}」已存在（{n} 個漸層）。
+@plural	{what}: {n} Image Assets output failed|{what}: {n} Image Assets outputs failed	{what}：{n} 個影像資源輸出失敗
+@plural	{what}: {n} file failed|{what}: {n} files failed	{what}：{n} 個檔案失敗
+	PhotoCraft could not start	PhotoCraft 無法啟動
+	PhotoCraft could not start.\n\n{error}\n\nRenderer: {renderer}	PhotoCraft 無法啟動。\n\n{error}\n\n算繪器：{renderer}
+	\nStartup: {note}	\n啟動：{note}
+	\nVersion: {version}	\n版本：{version}
+	\nLog file: {path}	\n記錄檔：{path}
+	Display profile not used	未使用顯示器色彩描述檔
+	{display} has no ICC profile	{display} 沒有 ICC 色彩描述檔
+	the display profile can't be read: {error}	無法讀取顯示器色彩描述檔：{error}
+	the display profile hasn't been read yet	尚未讀取顯示器色彩描述檔
+	this platform doesn't report display profiles	此平台不提供顯示器色彩描述檔
+	the display profile reader stopped without an answer	顯示器色彩描述檔讀取程式已停止，未傳回結果
+	The canvas is shown as sRGB. Choose a monitor profile in Edit › Color Settings.	畫布以 sRGB 顯示。請在「編輯 › 色彩設定」中選擇顯示器色彩描述檔。
+	The canvas on {display} is shown as sRGB. Choose a monitor profile in Edit › Color Settings.	{display} 上的畫布以 sRGB 顯示。請在「編輯 › 色彩設定」中選擇顯示器色彩描述檔。

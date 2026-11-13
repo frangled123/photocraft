@@ -1,0 +1,1 @@
+These upstream workflows are retained as merge reference, outside GitHub's active workflow directory. They must not be enabled for this fork: the shared release workflow uses a paid macOS larger runner. The only active fork workflow is the manual standard-runner macOS ARM release workflow.

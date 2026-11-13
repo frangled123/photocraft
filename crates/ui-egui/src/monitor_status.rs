@@ -170,8 +170,37 @@ fn profile_summary(st: &photocraft_engine::display_color::MonitorStatus) -> Stri
     };
     let source = tl!(st.source);
     match &st.reason {
-        Some(reason) => format!("{name} ({source}: {reason})"),
+        Some(reason) => format!("{name} ({source}: {})", notice_text(reason)),
         None => format!("{name} ({source})"),
+    }
+}
+
+/// Translate this notice's owned wording when drawn, after separating display names and
+/// diagnostic values. The stored English reading remains useful to automation and deduplication.
+pub(crate) fn notice_text(text: &str) -> String {
+    use crate::i18n::fmt;
+    if text == FALLBACK_TITLE {
+        return tl!("Display profile not used").to_owned();
+    }
+    if let Some(display) = text.strip_suffix(" has no ICC profile") {
+        return fmt(tl!("{display} has no ICC profile"), &[("display", display)]);
+    }
+    if let Some(error) = text.strip_prefix("the display profile can't be read: ") {
+        return fmt(tl!("the display profile can't be read: {error}"), &[("error", error)]);
+    }
+    if let Some(display) =
+        text.strip_prefix("The canvas on ").and_then(|s| s.strip_suffix(" is shown as sRGB. Choose a monitor profile in Edit › Color Settings."))
+    {
+        return fmt(tl!("The canvas on {display} is shown as sRGB. Choose a monitor profile in Edit › Color Settings."), &[("display", display)]);
+    }
+    match text {
+        "The canvas is shown as sRGB. Choose a monitor profile in Edit › Color Settings." => {
+            tl!("The canvas is shown as sRGB. Choose a monitor profile in Edit › Color Settings.").to_owned()
+        }
+        "the display profile hasn't been read yet" => tl!("the display profile hasn't been read yet").to_owned(),
+        "this platform doesn't report display profiles" => tl!("this platform doesn't report display profiles").to_owned(),
+        "the display profile reader stopped without an answer" => tl!("the display profile reader stopped without an answer").to_owned(),
+        _ => crate::i18n::t(text).to_owned(),
     }
 }
 
@@ -232,7 +261,8 @@ pub fn apply(app: &mut PhotocraftApp, r: Detection) {
     } else {
         "The canvas on {display} is shown as sRGB. Choose a monitor profile in Edit › Color Settings."
     };
-    let advice = crate::i18n::fmt(tl!(template), &[("display", &names.join(", "))]);
+    // Keep the owned English template so the notice follows language changes while it is open.
+    let advice = crate::i18n::fmt(template, &[("display", &names.join(", "))]);
     let mut lines: Vec<String> = fresh.into_iter().map(|(_, _, reason)| reason).collect();
     lines.push(advice);
     crate::notices::post(app, FALLBACK_TITLE, lines, true, None);
@@ -430,6 +460,26 @@ mod tests {
         let lines = summary_lines(&app);
         assert_eq!(lines[1], "Monitor profile on ROG PG32UQX (main window): Apple_Display (auto)", "{lines:?}");
         assert!(lines[0].starts_with("Monitor profile on Built-in Retina Display: sRGB"), "{lines:?}");
+    }
+
+    #[test]
+    fn notices_follow_both_chinese_variants_without_renaming_the_display() {
+        let mut app = app();
+        let name = "PhotoCraft monitor {sample}";
+        apply(&mut app, Ok(vec![Display { id: 1, name: name.into(), frame: [0.0, 0.0, 1920.0, 1080.0], profile_name: None, icc: None }]));
+        let notice = &app.ui.notices[0];
+        for (code, title) in [("zh-hans", "未使用显示器色彩配置文件"), ("zh-hant", "未使用顯示器色彩描述檔")] {
+            let Some(lang) = crate::i18n::Lang::from_code(code) else { continue };
+            crate::i18n::with_language(lang, || {
+                assert_eq!(notice.text(&notice.title), title);
+                let reason = notice.text(&notice.lines[0]);
+                let advice = notice.text(&notice.lines[1]);
+                assert!(reason.contains(name) && advice.contains(name));
+                assert!(!reason.contains("has no ICC profile"));
+                assert!(!advice.contains("Choose a monitor profile"));
+                assert_eq!(notice_text("unrecognized OS error 13"), "unrecognized OS error 13");
+            });
+        }
     }
 
     #[test]
